@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:translator/translator.dart';
 
-const List<String> list = <String>['en', 'ja', 'ru', 'tl', 'fr', 'pt', 'es'];
+const List<String> list = <String>['en', 'es', 'zh-cn', 'de', 'fr', 'hi', 'it', 'ja', 'pt', 'ru', 'tl'];
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,8 @@ class _MyAppState extends State<MyApp> {
   String dropdownValue = list.first;
   final translator = GoogleTranslator();
   final tts = FlutterTts();
-  var text, translated = "";
+  dynamic text;
+  var translated = "";
 
   void translateText() {
     translator.translate(text, to: dropdownValue).then((result) {
@@ -90,8 +91,17 @@ class _MyAppState extends State<MyApp> {
                         "Translate"
                     ),
                   ),
-                  Card(
-                      color: Colors.blue[900],
+                  const SizedBox(height:30.0,
+                  child: Divider(thickness: 1.0, color: Colors.black)),
+                  const Text(
+                    "Result",
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Container(
+                      color: Colors.green,
                       margin: const EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 20.0),
                       child: Padding(
@@ -107,7 +117,8 @@ class _MyAppState extends State<MyApp> {
                   ),
                   ElevatedButton(
                       onPressed: () => speak(translated, dropdownValue),
-                      child: const Text("Listen"))
+                      child: const Icon(Icons.volume_up)
+                  )
                 ],
               ),
             )
